@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Editor</title>
+</head>
+<body>
+    <table id="csvTable">
+        <!-- CSV data will be displayed here -->
+    </table>
+
+    <script>
+        // Fetch CSV file from GitHub repository
+        fetch('https://github.com/campus000/campussavories/blob/main/menu.csv')
+            .then(response => response.text())
+            .then(csvData => {
+                const csvRows = csvData.split('\n');
+                const table = document.getElementById('csvTable');
+
+                csvRows.forEach(row => {
+                    const cells = row.split(',');
+                    const tableRow = document.createElement('tr');
+
+                    cells.forEach(cell => {
+                        const tableData = document.createElement('td');
+                        tableData.textContent = cell;
+                        tableRow.appendChild(tableData);
+                    });
+
+                    table.appendChild(tableRow);
+                });
+            })
+            .catch(error => console.error('Error fetching CSV file:', error));
+    </script>
+</body>
+</html>
